@@ -1,0 +1,8 @@
+
+<div class="comment-form">
+    <h3>Leave a Comment</h3>
+        <form action="{% url 'blog:post_comment' post.id %}" method="post">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" value="Add comment">Submit</button>
+        </form>

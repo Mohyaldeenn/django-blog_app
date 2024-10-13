@@ -1,0 +1,58 @@
+
+{% extends 'blog/base.html' %}
+
+{% block title %} My Blog {% endblock title %}   
+{% load static %}
+
+{% block navbar %}
+    <a href="{% url "blog:post_list" %}">Home</a>
+    {% for tag in all_tags %}
+        <a href="{% url "blog:post_list_by_tag" tag.slug %}">{{tag.name}}</a>    
+    {% endfor %} 
+{% endblock navbar %}
+
+{% block content %}
+    <main>
+        <section class="hero">
+            <img src="{% static 'blog/hero-image.jpg' %}" alt="Hero Image">
+            <div class="overlay">
+                <h2>Welcome to Modern Diverse Blog</h2>
+                <p>Discover a world of knowledge and insights</p>
+            </div>
+        </section>
+        
+        {% if tag %}
+            <h2>Posts tagget with "{{tag.name}}"</h2>
+        {% endif %}
+                
+        <section class="recent-posts">
+            <h2>{% block page-title %} {% endblock page-title %}</h2>
+            <div class="post-list">
+                <!-- Example post cards -->
+            {% for post in posts %}
+                <a href="{{post.get_absolute_url}}" class="post-card">
+                    {% if post.image  %}
+                    <img src="{{ post.image.url }}" alt="Latest in Tech">  
+                    {% endif %}
+                    <div class="content">
+                        <h3>{{post.title}}</h3>
+                        <p>
+                        {% if post.body|wordcount > 60 %}
+                           {{post.body|truncatewords:60}} <span>See More</span>
+                            
+                        {% else %}
+                            {{post.body|safe}} 
+                        {% endif %}
+                        </p>   
+                        <p class="date">{{post.publish}} | tags: {{post.tags.all|join:", " }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+            
+            </div>
+            {% include "blog/post/pagination.html" with page=posts %}
+        </section>
+    </main>
+{% endblock content %}
+
+

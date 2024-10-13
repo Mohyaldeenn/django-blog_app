@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Modern Diverse Blog</h1>
+        <nav>
+            <div class="scroll-indicator left"><i class="fas fa-chevron-left"></i></div>
+            <ul>
+                <li>{% block navbar %}{% endblock navbar %}</li>      
+            </ul>
+            <div class="scroll-indicator right"><i class="fas fa-chevron-right"></i></div>
+        </nav>
+    </header> 
+    <script src="{% static 'blog/scripts.js' %}"></script>  
+</body>
+</html>
+{% block page-title %}{% endblock page-title %}
+{% block content %}{% endblock content %}
